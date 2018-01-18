@@ -1,0 +1,62 @@
+{% load static %}
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/analyze/">ASA</a>
+    </div>
+    <!-- Top Menu Items -->
+    <ul class="nav navbar-right top-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i><b class="caret"></b> Admin</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-cogs"></i> Settings</a>
+                </li>
+                <li>
+                    <a href="#"><i class="fa fa-fw fa-power-off"></i> Logout</a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+    <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav side-nav">
+            <li>
+                <a href="/analyze/"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="/analyze/create"><i class="fa fa-fw fa-android"></i> Submit</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-table"></i> Reports</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-bar-chart"></i> Graphs</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-cog"></i> Support</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-phone"></i> Contact</a>
+            </li>
+            <li>
+                <a href="#"><i class="fa fa-fw fa-info"></i> About</a>
+            </li>
+            <div class="cp-right">
+                <table>
+                    <tr>
+                        <td><img src="{% static 'images/logo.png' %}" width="30px" height="30px"></td>
+                        <td>APK Static Analyser<br>ASA</td>
+                    </tr>
+                </table>
+            </div>
+        </ul>
+    </div>
+    <!-- /.navbar-collapse -->
+</nav>

@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% include "analyze/partials/head.html" %}
+    {% block sub_head %}
+    {% endblock %}
+</head>
+
+<body>
+<div id="wrapper">
+    <!-- Navigation -->
+    {% include "analyze/partials/navbar.html" %}
+
+    <div id="page-wrapper">
+        {% block content %}
+        {% endblock %}
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+</div>
+<!-- /#wrapper -->
+<!-- jQuery -->
+{% include "analyze/partials/scripts.html" %}
+{% block sub_scripts %}
+{% endblock %}
+</body>
+
+</html>

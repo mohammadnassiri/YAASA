@@ -1,0 +1,261 @@
+{% extends 'analyze/master.html' %}
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                Admin Panel
+                <small>Summary</small>
+            </h1>
+            <ol class="breadcrumb">
+                <li class="active">
+                    <i class="fa fa-dashboard"></i>Admin Panel
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-android fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">5</div>
+                            <div>Scan</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-green">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-search fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">2</div>
+                            <div>Processing</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-warning fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">1</div>
+                            <div>Warning</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-close fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div class="huge">1</div>
+                            <div>Malware</div>
+                        </div>
+                    </div>
+                </div>
+                <a href="#">
+                    <div class="panel-footer">
+                        <span class="pull-left">View</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i> Scan Requests</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-area-chart"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-android fa-fw"></i> Scan Graphs</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="morris-donut-chart"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Activities</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="list-group">
+                        <a href="#" class="list-group-item">
+                            <span class="badge"> 5 hours ago</span>
+                            <i class="fa fa-fw fa-android"></i> Scan submitted
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">10 hours ago</span>
+                            <i class="fa fa-fw fa-check"></i> Scan done
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">15 hours ago</span>
+                            <i class="fa fa-fw fa-cog"></i> Support request
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">1 day ago</span>
+                            <i class="fa fa-fw fa-android"></i> New scan submitted
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">3 day ago</span>
+                            <i class="fa fa-fw fa-money"></i> Refund
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">1 week ago</span>
+                            <i class="fa fa-fw fa-cog"></i>Support response
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">1 month ago</span>
+                            <i class="fa fa-fw fa-android"></i>Submit a scan
+                        </a>
+                        <a href="#" class="list-group-item">
+                            <span class="badge">1 year ago</span>
+                            <i class="fa fa-fw fa-money"></i>Refund
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+{% endblock %}
+
+{% block sub_scripts %}
+<script>
+$(function() {
+    // Area Chart
+    Morris.Area({
+        element: 'morris-area-chart',
+        data: [{
+            period: '2010',
+            Projects: 2,
+            Warnings: null,
+            Dangers: 1
+        }, {
+            period: '2011',
+            Projects: 5,
+            Warnings: 3,
+            Dangers: 2
+        }, {
+            period: '2012',
+            Projects: 2,
+            Warnings: null,
+            Dangers: null
+        }, {
+            period: '2013',
+            Projects: 2,
+            Warnings: 1,
+            Dangers: 1
+        }, {
+            period: '2014',
+            Projects: 3,
+            Warnings: null,
+            Dangers: null
+        }, {
+            period: '2015',
+            Projects: 2,
+            Warnings: 2,
+            Dangers: null
+        }, {
+            period: '2016',
+            Projects: 2,
+            Warnings: null,
+            Dangers: 2
+        }],
+        xkey: 'period',
+        ykeys: ['Projects', 'Warnings', 'Dangers'],
+        labels: ['Projects', 'Warnings', 'Dangers'],
+        pointSize: 2,
+        hideHover: 'auto',
+        resize: true
+    });
+
+    // Donut Chart
+    Morris.Donut({
+        element: 'morris-donut-chart',
+        data: [{
+            label: "Cleans",
+            value: 5
+        }, {
+            label: "Warnings",
+            value: 2
+        }, {
+            label: "Dangers",
+            value: 2
+        }],
+        resize: true
+    });
+
+
+});
+</script>
+{% endblock %}
