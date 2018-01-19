@@ -16,7 +16,7 @@ def get_file_path(path):
 
 
 def get_tool_path(path):
-    directory = os.path.join(settings.BASE_DIR, path)
+    directory = os.path.join(settings.TOOLS_DIR, path)
     return directory
 
 
@@ -61,7 +61,7 @@ def apk_tool(project):
     project.save()
     path = get_file_path(project.file.name)
     save_path = path.rsplit(".", 1)[0]
-    tool_path = get_tool_path('tools/apktool/apktool.jar')
+    tool_path = get_tool_path('apktool/apktool.jar')
     subprocess.Popen(['java', '-jar', tool_path, 'd', path, '-o', save_path, '-f'], stdout=subprocess.PIPE)
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
@@ -90,14 +90,13 @@ def avscan_tool(project):
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
     path = get_file_path(project.file.name)
-    tool_path = get_tool_path('tools/plagueScanner/plaguescanner.py')
-    # proc = subprocess.Popen(['python', tool_path, path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    # output = proc.communicate()[0]
+    tool_path = get_tool_path('plagueScanner/plaguescanner.py')
+    proc = subprocess.Popen(['python3', tool_path, path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    output = proc.communicate()[0].strip().decode('utf-8')
     avscan = Avscan()
     avscan.project = project
     avscan.clamav = ""
-    # avscan.bitdefender = output
-    avscan.bitdefender = ""
+    avscan.bitdefender = output
     avscan.esetnod32 = ""
     avscan.save()
     project.status = 4

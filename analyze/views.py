@@ -86,18 +86,16 @@ def report_project(request, project_id):
     avscan.clamav_engine_version = ""
     avscan.clamav_pest_name = ""
 
-    #avscan.bitdefender = json.loads(avscan.bitdefender)
-    #avscan.bitdefender_engine = avscan.bitdefender[0]['engine']
-    #avscan.bitdefender_engine_version = avscan.bitdefender[0]['engine_version']
-    #avscan.bitdefender_pest_name = avscan.bitdefender[0]['pest_name'] if avscan.bitdefender[0]['pest_name'] else "Clean"
-    #if avscan.bitdefender[0]['pest_name']:
-    #    project_dangers += 1
-    #else:
-    #    project_cleans += 1
-
-    avscan.bitdefender_engine = "Not Ready"
-    avscan.bitdefender_engine_version = ""
-    avscan.bitdefender_pest_name = ""
+    avscan.bitdefender = json.loads(avscan.bitdefender)
+    avscan.bitdefender_engine = avscan.bitdefender[0]['engine']
+    avscan.bitdefender_engine_version = avscan.bitdefender[0]['engine_version']
+    avscan.bitdefender_results = avscan.bitdefender[0]['results'] if avscan.bitdefender[0]['results'] else "Clean"
+    infected = avscan.bitdefender_results.split('Infectedfiles:')[1].split(',')[0]
+    avscan.bitdefender_results = avscan.bitdefender_results.replace(',', "<br>")
+    if int(infected) > 0:
+        project_dangers += 1
+    else:
+        project_cleans += 1
 
     avscan.esetnod32_engine = "Not Ready"
     avscan.esetnod32_engine_version = ""
