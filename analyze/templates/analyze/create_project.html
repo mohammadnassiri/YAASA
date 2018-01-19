@@ -47,7 +47,7 @@
                         <td>{{ project.hash_sha512 }}</td>
                         <td>{{ project.time }}</td>
                         {% if project.status == True %}
-                            <td><a href="report/{{ project.id }}/">Report</a></td>
+                            <td><a href="/analyze/report/{{ project.id }}/">Report</a></td>
                         {% else %}
                             <td>{{ project.status }}</td>
                         {% endif %}
