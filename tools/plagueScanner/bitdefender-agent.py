@@ -51,20 +51,20 @@ def scan_file(sample):
         fp.write(sample_data)
         scanner = subprocess.Popen(['/opt/BitDefender-scanner/bin/bdscan', '--action=ignore', fp.name], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
         stdout, stderr = scanner.communicate()
-        output = stdout.splitlines()
+        output = stdout.decode('utf-8')
         fp.close()
     return output
 
 def parse_output(output):
     response = {'engine': 'BitDefender'}
-    pest_name = re.match(b'.+ infected: (.+)$', output[6])
-    if pest_name:
-        response['pest_name'] = pest_name.group(1).decode(encoding='utf-8')
+    results = output.split("Results:\n")[1][:-2].replace(' ','').replace('\n',',')
+    if results:
+        response['results'] = results
     else:
-        response['pest_name'] = None
-    engine_version = re.match(b'BitDefender Antivirus Scanner for Unices v(.+) .+', output[0])
+        response['results'] = None
+    engine_version = re.match("BitDefender Antivirus Scanner for Unices v(.+) .+", output)
     if engine_version:
-        response['engine_version'] = engine_version.group(1).decode(encoding='utf-8')
+        response['engine_version'] = engine_version.group(1)
     return response
 
 while True:
@@ -75,4 +75,5 @@ while True:
     response = requests.get('http://{}/{}'.format(config['PlagueScanner']['IP'], file))
     sample = io.BytesIO(response.content)
     reply = get_scanner_results(sample)
+    print(reply)
     socket.send_json(reply)
