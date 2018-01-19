@@ -2,15 +2,21 @@ import os
 import datetime
 import subprocess
 import zipfile
-import axmlparserpy as ApkParser
+
 from analyze.models import Project, Manifest, Avscan
 from threading import Thread
-from subprocess import Popen
+import tools.axmlparserpy.apk as ApkParser
+
+from apksa import settings
 
 
-def get_full_path(path):
-    module_dir = os.path.dirname(os.path.abspath(__file__))
-    directory = os.path.join(module_dir, path)
+def get_file_path(path):
+    directory = os.path.join(settings.MEDIA_ROOT, path)
+    return directory
+
+
+def get_tool_path(path):
+    directory = os.path.join(settings.BASE_DIR, path)
     return directory
 
 
@@ -35,16 +41,16 @@ def do_tools(project):
     unzip_tool(project)
     apk_tool(project)
     parse_manifest(project)
-    #avscan_tool(project)
+    avscan_tool(project)
 
 
 def unzip_tool(project):
     project.status = 1
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
-    path = get_full_path(project.file.name)
-    zip_ref = zipfile.ZipFile(path.replace('/', '\\'), 'r')
-    save_path = path.rsplit(".", 1)[0].replace('/', '\\') + "-unzipped"
+    path = get_file_path(project.file.name)
+    zip_ref = zipfile.ZipFile(path, 'r')
+    save_path = path.rsplit(".", 1)[0] + "-unzipped"
     zip_ref.extractall(save_path)
     zip_ref.close()
 
@@ -53,13 +59,10 @@ def apk_tool(project):
     project.status = 2
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
-    path = get_full_path(project.file.name)
-    apk_path = path.replace('/', '\\')
-    save_path = path.rsplit(".", 1)[0].replace('/', '\\')
-    tool_path = get_full_path('tools\\apktool\\apktool.jar')
-    cmd = "java -jar " + tool_path + " d " + apk_path + " -o " + save_path + " -f"
-    p = Popen(cmd)
-    p.communicate()
+    path = get_file_path(project.file.name)
+    save_path = path.rsplit(".", 1)[0]
+    tool_path = get_tool_path('tools/apktool/apktool.jar')
+    subprocess.Popen(['java', '-jar', tool_path, 'd', path, '-o', save_path, '-f'], stdout=subprocess.PIPE)
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
 
@@ -67,9 +70,8 @@ def apk_tool(project):
 def parse_manifest(project):
     manifest = Manifest()
     manifest.project = project
-    path = get_full_path(project.file.name)
-    manifest_path = path.replace('/', '\\')
-    parsed_apk = ApkParser.APK(manifest_path)
+    path = get_file_path(project.file.name)
+    parsed_apk = ApkParser.APK(path)
     manifest.activities = parsed_apk.get_activities()
     manifest.receivers = parsed_apk.get_receivers()
     manifest.services = parsed_apk.get_services()
@@ -87,17 +89,18 @@ def avscan_tool(project):
     project.status = 3
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
-    path = get_full_path(project.file.name)
-    apk_path = path.replace('/', '\\')
-    tool_path = get_full_path('tools\\plagueScanner\\plaguescanner.py')
-    proc = subprocess.Popen(['python', tool_path,  apk_path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    output = proc.communicate()[0]
+    path = get_file_path(project.file.name)
+    tool_path = get_tool_path('tools/plagueScanner/plaguescanner.py')
+    #proc = subprocess.Popen(['python', tool_path, path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    #output = proc.communicate()[0]
     avscan = Avscan()
     avscan.project = project
     avscan.clamav = ""
-    avscan.bitdefender = output
+    #avscan.bitdefender = output
+    avscan.bitdefender = ""
     avscan.esetnod32 = ""
     avscan.save()
     project.status = 4
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
+

@@ -7,6 +7,8 @@ from analyze.models import Project, User, Manifest, Avscan
 import analyze.libs.threads as threads
 import analyze.libs.hashes as hashes
 from django.shortcuts import render
+
+from apksa import settings
 from .forms import CreateProject
 
 
@@ -29,10 +31,11 @@ def create_project(request):
             project.status = 0
             project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
             project.save()
-            project.hash_md5 = hashes.md5(project.file.name)
-            project.hash_sha1 = hashes.sha1(project.file.name)
-            project.hash_sha256 = hashes.sha256(project.file.name)
-            project.hash_sha512 = hashes.sha512(project.file.name)
+            path = settings.MEDIA_ROOT + project.file.name
+            project.hash_md5 = hashes.md5(path)
+            project.hash_sha1 = hashes.sha1(path)
+            project.hash_sha256 = hashes.sha256(path)
+            project.hash_sha512 = hashes.sha512(path)
             project.save()
             if project.id:
                 message = "Scan has been submitted."
@@ -79,20 +82,24 @@ def report_project(request, project_id):
 
     avscan = Avscan.objects.order_by('-id').filter(project_id=project_id).first()
 
-    avscan.clamav_engine = "Not checked"
+    avscan.clamav_engine = "Not Ready"
     avscan.clamav_engine_version = ""
     avscan.clamav_pest_name = ""
 
-    avscan.bitdefender = json.loads(avscan.bitdefender)
-    avscan.bitdefender_engine = avscan.bitdefender[0]['engine']
-    avscan.bitdefender_engine_version = avscan.bitdefender[0]['engine_version']
-    avscan.bitdefender_pest_name = avscan.bitdefender[0]['pest_name'] if avscan.bitdefender[0]['pest_name'] else "Clean"
-    if avscan.bitdefender[0]['pest_name']:
-        project_dangers += 1
-    else:
-        project_cleans += 1
+    #avscan.bitdefender = json.loads(avscan.bitdefender)
+    #avscan.bitdefender_engine = avscan.bitdefender[0]['engine']
+    #avscan.bitdefender_engine_version = avscan.bitdefender[0]['engine_version']
+    #avscan.bitdefender_pest_name = avscan.bitdefender[0]['pest_name'] if avscan.bitdefender[0]['pest_name'] else "Clean"
+    #if avscan.bitdefender[0]['pest_name']:
+    #    project_dangers += 1
+    #else:
+    #    project_cleans += 1
 
-    avscan.esetnod32_engine = "Not Checked"
+    avscan.bitdefender_engine = "Not Ready"
+    avscan.bitdefender_engine_version = ""
+    avscan.bitdefender_pest_name = ""
+
+    avscan.esetnod32_engine = "Not Ready"
     avscan.esetnod32_engine_version = ""
     avscan.esetnod32_pest_name = ""
 
