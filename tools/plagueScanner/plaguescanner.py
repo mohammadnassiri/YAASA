@@ -22,11 +22,13 @@ import argparse
 import configparser
 import json
 import os
-import Queue as queue
+import queue
 import tempfile
 import threading
 
 import zmq
+
+from apksa import settings
 
 parser = argparse.ArgumentParser(description='Scan a file.')
 parser.add_argument('sample', metavar='SAMPLE', type=str, help='File name of the file that you wish to scan.')
@@ -71,7 +73,7 @@ if args.sample:
     fh = open(os.path.join(working_dir, args.sample), 'rb')
     sample_data = fh.read()
     fh.close()
-    outbound_samples = config['PlagueScanner']['OutboundSamplesDir']
+    outbound_samples = os.path.join(settings.TOOLS_DIR, config['PlagueScanner']['OutboundSamplesDir'])
     with tempfile.NamedTemporaryFile(prefix='', dir=outbound_samples) as fp:
         fp.write(sample_data)
         os.chmod(fp.name, 0o644)
