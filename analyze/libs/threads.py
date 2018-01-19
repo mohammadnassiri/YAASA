@@ -91,16 +91,15 @@ def avscan_tool(project):
     project.save()
     path = get_file_path(project.file.name)
     tool_path = get_tool_path('tools/plagueScanner/plaguescanner.py')
-    #proc = subprocess.Popen(['python', tool_path, path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-    #output = proc.communicate()[0]
+    # proc = subprocess.Popen(['python', tool_path, path], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    # output = proc.communicate()[0]
     avscan = Avscan()
     avscan.project = project
     avscan.clamav = ""
-    #avscan.bitdefender = output
+    # avscan.bitdefender = output
     avscan.bitdefender = ""
     avscan.esetnod32 = ""
     avscan.save()
     project.status = 4
     project.time = datetime.datetime.now().strftime('%Y/%m/%d %H:%M:%S')
     project.save()
-

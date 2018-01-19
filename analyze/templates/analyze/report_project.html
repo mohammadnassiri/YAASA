@@ -1,8 +1,11 @@
 {% extends 'analyze/master.html' %}
+
 {% load static %}
+
 {% block sub_head %}
     <link href="{% static 'css/dataTables.bootstrap.min.css' %}" rel="stylesheet">
 {% endblock %}
+
 {% block content %}
     <div class="panel panel-default">
         <div class="panel-heading">Report of {{ project_name }}</div>

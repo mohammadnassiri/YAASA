@@ -21,3 +21,5 @@ class CreateProject(ModelForm):
         widgets = {
             'name': TextInput(attrs={'placeholder': 'Please enter an english name.', 'class': 'form-control'}),
         }
+
+

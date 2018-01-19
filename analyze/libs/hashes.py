@@ -10,8 +10,8 @@ def hash_calc(project):
     project.hash_sha256 = sha256(apk_path)
     project.hash_sha512 = sha512(apk_path)
     project.save()
-    #project = models.Project()
-    #project.file = apk_path
+    # project = models.Project()
+    # project.file = apk_path
 
 
 def md5(file_name):
@@ -44,4 +44,3 @@ def sha512(file_name):
         for chunk in iter(lambda: f.read(4096), b""):
             hash_value.update(chunk)
     return hash_value.hexdigest()
-
