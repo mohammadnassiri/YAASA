@@ -13,7 +13,7 @@
     <div class="panel panel-default">
       <div class="panel-heading">New Submit</div>
       <div class="panel-body">
-          <form role="form" method="post" action="/analyze/create" enctype="multipart/form-data">
+          <form role="form" method="post" action="/analyze/create/" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
             <div class="form-group">
@@ -40,14 +40,14 @@
             <tbody>
                 {% for project in projects %}
                     <tr>
-                        <td><a href="{% static project.file.name %}">{{ project.name }}</a></td>
+                        <td>{{ project.name }}</td>
                         <td>{{ project.hash_md5 }}</td>
                         <td>{{ project.hash_sha1 }}</td>
                         <td>{{ project.hash_sha256 }}</td>
                         <td>{{ project.hash_sha512 }}</td>
                         <td>{{ project.time }}</td>
                         {% if project.status == True %}
-                            <td><a href="analyse/report/{{ project.id }}">Report</a></td>
+                            <td><a href="report/{{ project.id }}/">Report</a></td>
                         {% else %}
                             <td>{{ project.status }}</td>
                         {% endif %}
