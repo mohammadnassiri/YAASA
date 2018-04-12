@@ -26,5 +26,5 @@ pip3 install -r requirements.txt
 
 
 ## Paper
-Paper published [here](http://apa3.apaconf.ir/) (persian).   
+The report of this tool is published on [APA3](http://apa3.apaconf.ir/) conference..   
 For more information please [contact me](https://mnassiri.ir).
