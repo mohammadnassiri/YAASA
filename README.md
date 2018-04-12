@@ -23,3 +23,8 @@ pip3 install -r requirements.txt
 
 ## Config
 ```.env ``` file must be configured before using the YAASA framework. If you use a MySQL database, connection variables should be set in this file. Also set a secret_key which is used by django itself.
+
+
+## Paper
+Paper published [here](http://apa3.apaconf.ir/) (persian).   
+For more information please [contact me](https://mnassiri.ir).
